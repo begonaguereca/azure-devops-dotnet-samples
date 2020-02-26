@@ -1,22 +1,24 @@
-pool:
-  name: BegonaDev
+jobs:
+- job: string
+  pool:
+    name: BegonaDev
 
-variables:
-  solution: './ClientLibrary/Samples/ClientSamples.sln'
-  buildPlatform: 'Any CPU'
-  buildConfiguration: 'Release'
+  variables:
+    solution: './ClientLibrary/Samples/ClientSamples.sln'
+    buildPlatform: 'Any CPU'
+    buildConfiguration: 'Release'
 
-steps:
-- task: NuGetToolInstaller@0
+  steps:
+  - task: NuGetToolInstaller@0
 
-- task: NuGetCommand@2
-  inputs:
-    restoreSolution: '$(solution)'
+  - task: NuGetCommand@2
+    inputs:
+      restoreSolution: '$(solution)'
 
-- task: VSBuild@1
-  inputs:
-    solution: '$(solution)'
-    msbuildArgs: '/p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:SkipInvalidConfigurations=true /p:PackageLocation="$(build.artifactStagingDirectory)"'
-    platform: '$(buildPlatform)'
-    configuration: '$(buildConfiguration)'
+  - task: VSBuild@1
+    inputs:
+      solution: '$(solution)'
+      msbuildArgs: '/p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:SkipInvalidConfigurations=true /p:PackageLocation="$(build.artifactStagingDirectory)"'
+      platform: '$(buildPlatform)'
+      configuration: '$(buildConfiguration)'
 
