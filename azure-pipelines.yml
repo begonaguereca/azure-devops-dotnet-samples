@@ -1,5 +1,5 @@
 jobs:
-- job: string
+- job: build_agent
   pool:
     name: BegonaDev
 
